@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="https://github.com/XColorful/CBR-Killicon-compat/issues"
+
+[[mods]]
+modId="cbrkc"
+version="${mod_version}"
+displayName="Custom BattleRoyale Killicon compat"
+displayURL="https://github.com/XColorful/CBR-Killicon-compat/wiki"
+logoFile="logo.png"
+authors="XiaoColorful"
+description='''Custom BattleRoyale Killicon compat
+'''
+
+[[dependencies.cbrkc]]
+modId="${target_modloader}"
+mandatory=true
+versionRange="${target_version_range}"
+ordering="NONE"
+side="BOTH"
+[[dependencies.cbrkc]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+[[dependencies.cbrkc]]
+modId = "battleroyale"
+mandatory = true
+versionRange = "[0.4.9,)"
+ordering = "NONE"
+side = "SERVER"

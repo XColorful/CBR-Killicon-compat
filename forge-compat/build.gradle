@@ -1,0 +1,98 @@
+plugins {
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+        data {
+            workingDirectory project.file('run-data')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+tasks.withType(ProcessResources).configureEach {
+    from(project(':core').sourceSets.main.resources)
+
+    var replaceProperties = [
+            mod_license: project.mod_license,
+            mod_version: project.mod_version
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [
+                loader_version_range: forge_version_range,
+                target_modloader: 'forge',
+                target_version_range: forge_version_range,
+                minecraft_version_range: minecraft_version_range,
+                project: project
+        ]
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${forge_version}"
+
+    implementation project(":core")
+
+    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7604848") // 0.4.9-dev1
+    // compileOnly fg.deobf("curse.maven:gd656killicon-1413584:7440282") // CurseForge的太老了
+    // compileOnly fg.deobf("maven.modrinth:gd656killicon:ISsveki5") // Modrinth貌似导不进来，下载原始jar包失败
+    // compileOnly fg.deobf(files("../libs/gd656killicon-1.0.8-1.20.1-forge.jar"))
+    compileOnly fg.deobf(files("../libs/gd656killicon-1.0.9.002-1.20.1-forge.jar"))
+}
+
+tasks.named('jar', Jar).configure {
+    archiveBaseName.set("cbr-killicon-compat")
+    archiveVersion.set(mod_version)
+    archiveClassifier.set("forge1.20.1")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from project(':core').sourceSets.main.output
+
+    manifest {
+        attributes([
+                "Specification-Title"     : "cbrkc",
+                "Specification-Vendor"    : "XiaoColorful",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.mod_version,
+                "Implementation-Vendor"   : "XiaoColorful",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "cbrkc.mixins.json" // 必须与 resources 下的文件名一致
+        ])
+    }
+}
+
+tasks.matching { it.name == 'remapJar' || it.name == 'reobfJar' }.configureEach {
+    if (it.hasProperty("archiveClassifier")) {
+        it.archiveBaseName.set("cbr-killicon-compat")
+        it.archiveVersion.set(mod_version)
+        it.archiveClassifier.set("forge1.20.1")
+    }
+}
