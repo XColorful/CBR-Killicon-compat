@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import org.slf4j.Logger;
 import xiao.battleroyale.api.common.McSide;
 import xiao.cbrkc.api.compat.killicon.IKilliconNetworkHandler;
+import xiao.cbrkc.api.compat.killicon.IModLogicUnregister;
 
 public class CbrKilliconCompat {
     public static final String MOD_ID = "cbrkc";
@@ -12,7 +13,7 @@ public class CbrKilliconCompat {
 
     protected static boolean initialized;
     protected static McSide mcSide = McSide.CLIENT;
-    public record CompatApi(IKilliconNetworkHandler killiconNetworkHandler) {}
+    public record CompatApi(IKilliconNetworkHandler killiconNetworkHandler, IModLogicUnregister modLogicUnregister) {}
     private static CompatApi compatApi;
 
     public static void init(McSide mcSide,

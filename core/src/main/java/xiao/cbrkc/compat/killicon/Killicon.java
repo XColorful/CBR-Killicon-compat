@@ -36,6 +36,9 @@ public class Killicon extends AbstractCompatMod {
      */
     @Override
     public void onModLoaded() throws Exception {
+        // --- 反射注销原模组逻辑 (替代 Mixin) ---
+        CbrKilliconCompat.getCompatApi().modLogicUnregister().unregisterModLogic();
+
         // 1. 校验核心发包器类和方法 (NetworkHandler)
         Class<?> networkHandler = Class.forName("org.mods.gd656killicon.network.NetworkHandler");
         // 校验是否存在 sendToPlayer 方法，且参数类型正确

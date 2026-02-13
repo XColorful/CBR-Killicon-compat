@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import xiao.battleroyale.BattleRoyale;
 import xiao.battleroyale.api.event.*;
@@ -108,12 +109,12 @@ public class KilliconGameEventHandler implements ICustomEventHandler {
             return;
         }
 
-        // 获取 ServerPlayer
-        @Nullable ServerPlayer victim = GameUtils.getServerPlayerOrNull(serverLevel, gamePlayer.getPlayerUUID());
+        @Nullable LivingEntity victim = GameUtils.getLivingEntity(serverLevel, gamePlayer.getPlayerUUID());
         if (victim == null) {
             CbrKilliconCompat.LOGGER.debug("KilliconGameEventHandler: victim ServerPlayer is null, skipped onKnockPlayer");
             return;
         }
+        // 获取 ServerPlayer
         DamageSource damageSource = livingDeathEvent.getSource();
         @Nullable Entity attackerEntity = damageSource.getEntity();
         if (attackerEntity == null) {
@@ -151,12 +152,12 @@ public class KilliconGameEventHandler implements ICustomEventHandler {
             return;
         }
 
-        // 获取 ServerPlayer
-        @Nullable ServerPlayer victim = GameUtils.getServerPlayerOrNull(serverLevel, event.getGamePlayer().getPlayerUUID());
+        @Nullable LivingEntity victim = GameUtils.getLivingEntity(serverLevel, event.getGamePlayer().getPlayerUUID());
         if (victim == null) {
             CbrKilliconCompat.LOGGER.debug("KilliconGameEventHandler: victim ServerPlayer is null, skipped onEliminatePlayer");
             return;
         }
+        // 获取 ServerPlayer
         DamageSource damageSource = livingDeathEvent.getSource();
         @Nullable Entity attackerEntity = damageSource.getEntity();
         if (attackerEntity == null) {
