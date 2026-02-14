@@ -31,3 +31,9 @@ mandatory = true
 versionRange = "[0.4.9,)"
 ordering = "NONE"
 side = "SERVER"
+[[dependencies.cbrkc]]
+modId = "gd656killicon"
+mandatory = true
+versionRange = "[1.0.9.002,)"
+ordering = "NONE"
+side = "SERVER"
