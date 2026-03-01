@@ -13,7 +13,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${forge_version}"
     compileOnly fg.deobf("net.minecraftforge:forge:${forge_version}")
 
-    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7604848") // 0.4.9-dev1
+    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7662501") // 0.5.0
 }
 
 jar {

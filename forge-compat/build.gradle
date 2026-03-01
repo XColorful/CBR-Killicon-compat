@@ -61,11 +61,11 @@ dependencies {
 
     implementation project(":core")
 
-    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7604848") // 0.4.9-dev1
+    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7662501") // 0.5.0
     // compileOnly fg.deobf("curse.maven:gd656killicon-1413584:7440282") // CurseForge的太老了
     // compileOnly fg.deobf("maven.modrinth:gd656killicon:ISsveki5") // Modrinth貌似导不进来，下载原始jar包失败
     // compileOnly fg.deobf(files("../libs/gd656killicon-1.0.8-1.20.1-forge.jar"))
-    compileOnly fg.deobf(files("../libs/gd656killicon-1.0.9.002-1.20.1-forge.jar"))
+    compileOnly fg.deobf(files("../libs/gd656killicon-1.1.0.015-1.20.1-forge.jar"))
 }
 
 tasks.named('jar', Jar).configure {
