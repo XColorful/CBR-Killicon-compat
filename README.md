@@ -6,8 +6,6 @@
 
 本模组使[GD656击杀图标](https://www.curseforge.com/minecraft/mc-mods/gd656killicon)兼容[自定义大逃杀](https://github.com/XColorful/BattleRoyale)的机制
 
-本模组目前处于**早期开发阶段**，仅适配`gd656killicon-1.0.9.002-1.20.1-forge.jar`
-
 ---
 
 `该模组需要安装在服务端`
@@ -27,8 +25,6 @@
 # CBR Killicon compat
 
 This mod provides compatibility between [GD656Killicon](https://www.curseforge.com/minecraft/mc-mods/gd656killicon) and [Custom BattleRoyale](https://github.com/XColorful/BattleRoyale).
-
-This project is currently in the **early stages of development**. It is only compatible with `gd656killicon-1.0.9.002-1.20.1-forge.jar`.
 
 `This mod needs to be installed on the server.`
 
