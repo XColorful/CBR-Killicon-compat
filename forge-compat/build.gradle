@@ -40,38 +40,48 @@ tasks.withType(ProcessResources).configureEach {
     from(project(':core').sourceSets.main.resources)
 
     var replaceProperties = [
-            mod_license: project.mod_license,
-            mod_version: project.mod_version
+            minecraft_version_range: minecraft_version_range,
+            loader_version_range   : forge_version_range,
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_license            : mod_license,
+            mod_version            : mod_version,
+            mod_credits            : mod_credits,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            mod_issue_url          : mod_issue_url,
+            mod_display_url        : mod_display_url,
+            mod_logo_file          : mod_logo_file,
+            pack_description       : pack_description,
+            pack_format            : pack_format,
+
+            target_modloader       : forge_id,
+            target_version_range   : forge_version_range,
+
+            battleroyale_version_range: battleroyale_version_range,
+            gd656killicon_version_range: gd656killicon_version_range
     ]
+
     inputs.properties replaceProperties
 
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [
-                loader_version_range: forge_version_range,
-                target_modloader: 'forge',
-                target_version_range: forge_version_range,
-                minecraft_version_range: minecraft_version_range,
-                project: project
-        ]
+        expand replaceProperties
     }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation project(":core")
 
-    compileOnly fg.deobf("curse.maven:custom-battleroyale-1277855:7662501") // 0.5.0
-    // compileOnly fg.deobf("curse.maven:gd656killicon-1413584:7440282") // CurseForge的太老了
-    // compileOnly fg.deobf("maven.modrinth:gd656killicon:ISsveki5") // Modrinth貌似导不进来，下载原始jar包失败
-    // compileOnly fg.deobf(files("../libs/gd656killicon-1.0.8-1.20.1-forge.jar"))
-    compileOnly fg.deobf(files("../libs/gd656killicon-1.1.0.015-1.20.1-forge.jar"))
+    compileOnly fg.deobf(battleroyale_curse_maven)
+    compileOnly gd656killicon_modrinth_maven
 }
 
 tasks.named('jar', Jar).configure {
-    archiveBaseName.set("cbr-killicon-compat")
+    archiveBaseName.set(mod_id)
     archiveVersion.set(mod_version)
-    archiveClassifier.set("forge1.20.1")
+    archiveClassifier.set("${forge_id}-${minecraft_version}")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from project(':core').sourceSets.main.output
 
@@ -91,8 +101,8 @@ tasks.named('jar', Jar).configure {
 
 tasks.matching { it.name == 'remapJar' || it.name == 'reobfJar' }.configureEach {
     if (it.hasProperty("archiveClassifier")) {
-        it.archiveBaseName.set("cbr-killicon-compat")
+        it.archiveBaseName.set(mod_id)
         it.archiveVersion.set(mod_version)
-        it.archiveClassifier.set("forge1.20.1")
+        it.archiveClassifier.set("${forge_id}-${minecraft_version}")
     }
 }

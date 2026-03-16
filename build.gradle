@@ -17,5 +17,17 @@ allprojects {
         maven {
             url "https://www.cursemaven.com"
         }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            forRepositories(maven { url = "https://maven.minecraftforge.net/" })
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
     }
 }
