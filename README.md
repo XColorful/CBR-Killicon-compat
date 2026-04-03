@@ -2,6 +2,10 @@
 
 [中文](#自定义大逃杀击杀图标兼容) | [English](#cbr-killicon-compat)
 
+**停止维护说明**：由于[GD656击杀图标](https://github.com/MinecraftGD656/gd656killicon)非标准的项目结构极难进行标准化适配与长期维护，且截至 1.1.1.002 仍未提供正式 MIT LICENSE 文件，故本兼容模组现已停止开发。
+
+**Deprecation Notice**: Due to the non-standard project structure of [GD656Killicon](https://github.com/MinecraftGD656/gd656killicon), which makes standardized maintenance unfeasible, and the absence of a formal MIT LICENSE file as of version 1.1.1.002, this compatibility mod is no longer under development.
+
 # 自定义大逃杀击杀图标兼容
 
 本模组使[GD656击杀图标](https://www.curseforge.com/minecraft/mc-mods/gd656killicon)兼容[自定义大逃杀](https://github.com/XColorful/BattleRoyale)的机制
